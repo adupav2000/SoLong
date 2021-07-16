@@ -6,7 +6,7 @@
 /*   By: adu-pavi <adu-pavi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/15 14:21:28 by adu-pavi          #+#    #+#             */
-/*   Updated: 2021/07/16 12:59:37 by adu-pavi         ###   ########.fr       */
+/*   Updated: 2021/07/16 18:24:53 by adu-pavi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,12 +85,13 @@ int	is_right_map_char(t_solong *info, char map_char)
 	return (0);
 }
 
-int init_solong(t_solong *info)
+int	init_solong(t_solong *info)
 {
 	info->play_set = 0;
 	info->exit_set = 0;
 	info->coll_set = 0;
 	info->coll_amount = 0;
+	info->mov_num = 0;
 	info->posX = 0;
 	info->posY = 0;
 	info->map_w = 0;

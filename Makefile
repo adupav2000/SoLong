@@ -5,6 +5,7 @@ SRCS	= main.c srcs/parsing.c\
 			srcs/move.c\
 			srcs/img_handle.c\
 			srcs/handle_view.c\
+			srcs/mlx_utils.c\
 			srcs/init_game.c
 
 

@@ -6,7 +6,7 @@
 /*   By: adu-pavi <adu-pavi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/15 20:36:34 by adu-pavi          #+#    #+#             */
-/*   Updated: 2021/07/16 13:25:25 by adu-pavi         ###   ########.fr       */
+/*   Updated: 2021/07/16 14:16:52 by adu-pavi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,10 @@ int	put_floor_and_wall(t_solong *info, int x, int y, char c)
 	else
 		mlx_put_image_to_window(info->mlx.mlx_ptr,
 			info->mlx.mlx_win, info->img_floor.img, x, y);
+	// if (c == WALL)
+	// 	draw_square(info, info->img_wall.img, x, y);
+	// else
+	// 	draw_square(info, info->img_floor.img, x, y);
 	return (0);
 }
 
@@ -50,6 +54,14 @@ int	put_all_items(t_solong *info, int x, int y, char c)
 			info->mlx.mlx_win, info->img_exit.img, x, y);
 	else if (c != WALL && c != FLOOR)
 		return (-1);
+	// if (c == COLLECT)
+	// 	draw_square(info, info->img_coll.img, x, y);
+	// else if (c == PLAYER)
+	// 	draw_square(info, info->img_player.img, x, y);
+	// else if (c == EXIT)
+	// 	draw_square(info, info->img_exit.img, x, y);
+	// else if (c != WALL && c != FLOOR)
+	// 	return (-1);
 	return (0);
 }
 

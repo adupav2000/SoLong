@@ -6,7 +6,7 @@
 /*   By: adu-pavi <adu-pavi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/15 20:34:39 by adu-pavi          #+#    #+#             */
-/*   Updated: 2021/07/15 20:35:22 by adu-pavi         ###   ########.fr       */
+/*   Updated: 2021/07/16 14:16:34 by adu-pavi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	load_texture(char *tex_link, t_img *img, t_data *mlx)
 	if (ft_strncmp(&tex_link[ft_strlen(tex_link) - 3], "png", 3) == 0)
 	{
 		img->img = mlx_png_file_to_image(mlx->mlx_ptr, tex_link,
-				&img->width, &img->height);
+				&(img->width), &(img->height));
 		if (img->img == NULL)
 			return (-1);
 		img->addr = mlx_get_data_addr(img->img, &(img->bpp),

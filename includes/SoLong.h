@@ -6,7 +6,7 @@
 /*   By: adu-pavi <adu-pavi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/13 14:24:12 by adu-pavi          #+#    #+#             */
-/*   Updated: 2021/07/16 00:30:27 by adu-pavi         ###   ########.fr       */
+/*   Updated: 2021/07/16 18:08:36 by adu-pavi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,7 @@ typedef struct s_solong{
 	int		exit_set;
 	int		coll_set;
 	int		coll_amount;
+	int		mov_num;
 	t_img	img_coll;
 	t_img	img_wall;
 	t_img	img_floor;
@@ -94,7 +95,7 @@ int		img_well_set(t_solong *info);
 int		init_img(t_solong *info);
 
 int		set_up_window(t_solong *info);
-int		put_floor_and_wall(t_solong *info, int x, int y, char c);
+int		nd_wall(t_solong *info, int x, int y, char c);
 int		put_all_items(t_solong *info, int x, int y, char c);
 int		set_up_view(t_solong *info);
 
@@ -103,4 +104,9 @@ int		erase_player(t_solong *info);
 int		change_map_char_to_player(t_solong *info, int posX, int posY);
 int		init_move(t_solong *info, int moveX, int moveY);
 int		update_view(t_solong *info);
+
+unsigned int	mlx_get_pixel(t_img *img, int x, int y);
+void	mlx_draw_pixel(t_img *mlx_img, int x, int y, int color);
+unsigned int	mlx_rgb_to_int(int o, int r, int g, int b);
+void	draw_square(t_solong *info, t_img *img, int x, int y);
 #endif
