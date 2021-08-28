@@ -15,22 +15,17 @@
 int	key_hook(int keycode, t_solong *info)
 {
 	(void)info;
-	if (keycode == 123 || keycode == 0)
+	if (keycode == 97)
 		init_move(info, -1, 0);
-	else if (keycode == 125 || keycode == 1)
+	else if (keycode == 115)
 		init_move(info, 0, 1);
-	else if (keycode == 124 || keycode == 2)
+	else if (keycode == 100)
 		init_move(info, 1, 0);
-	else if (keycode == 126 || keycode == 13)
+	else if (keycode == 119)
 		init_move(info, 0, -1);
-	else if (keycode == 53)
+	else if (keycode == 65307)
 		exit_success(info);
-    printf("tkeycode : %d\n", keycode);
 	update_view(info);
-	info->mov_num++;
-	ft_putstr_fd("Move number ", 1);
-	ft_putnbr_fd(info->mov_num, 1);
-	ft_putstr_fd("\n", 1);
 	return (0);
 }
 
@@ -38,12 +33,12 @@ int	main(int ac, char **av)
 {
 	t_solong	info;
 
-	if (parsing(ac, av, &info))
+	if (ac != 2 || parsing(ac, av, &info))
 		return (-1);
 	if (init_view(&info))
 		return (-1);
 	mlx_key_hook(info.mlx.mlx_win, key_hook, &info);
-	// mlx_hook(info.mlx.mlx_win, 33, (1L << 5), exit_success, &info);
+	mlx_hook(info.mlx.mlx_win, 33, (1L << 5), exit_success, &info);
 	mlx_loop(info.mlx.mlx_ptr);
 	return (0);
 }

@@ -17,6 +17,10 @@ int	autorised_position(t_solong *info, int x, int y)
 	if (get_map_char(info, x, y) == WALL
 		|| (get_map_char(info, x, y) == EXIT && info->coll_amount > 0))
 		return (-1);
+	info->mov_num++;
+	ft_putstr_fd("Move number ", 1);
+	ft_putnbr_fd(info->mov_num, 1);
+	ft_putstr_fd("\n", 1);
 	return (0);
 }
 
@@ -60,6 +64,7 @@ int	init_move(t_solong *info, int moveX, int moveY)
 		return (-1);
 	if (autorised_position(info, (info->posX + moveX), (info->posY + moveY)))
 		return (0);
+	info->mov_num++;
 	if (get_map_char(info, (info->posX + moveX), (info->posY + moveY))
 		== COLLECT)
 	{

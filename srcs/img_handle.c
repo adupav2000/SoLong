@@ -14,10 +14,11 @@
 
 int	load_texture(char *tex_link, t_img *img, t_data *mlx)
 {
-	if (ft_strncmp(&tex_link[ft_strlen(tex_link) - 3], "png", 3) == 0)
+	if (ft_strncmp(&tex_link[ft_strlen(tex_link) - 3], "xpm", 3) == 0)
 	{
-		img->img = mlx_png_file_to_image(mlx->mlx_ptr, tex_link,
+		img->img = mlx_xpm_file_to_image(mlx->mlx_ptr, tex_link,
 				&(img->width), &(img->height));
+		printf("Width : %d, height : %d\n", img->width, img->height);
 		if (img->img == NULL)
 			return (-1);
 		img->addr = mlx_get_data_addr(img->img, &(img->bpp),
@@ -45,15 +46,15 @@ int	img_well_set(t_solong *info)
 
 int	init_img(t_solong *info)
 {
-	if (load_texture("tex/floor.png", &(info->img_floor), &(info->mlx)))
+	if (load_texture("tex/floor.xpm", &(info->img_floor), &(info->mlx)))
 		return (-1);
-	if (load_texture("tex/coll.png", &(info->img_coll), &(info->mlx)))
+	if (load_texture("tex/coll.xpm", &(info->img_coll), &(info->mlx)))
 		return (-1);
-	if (load_texture("tex/wall.png", &(info->img_wall), &(info->mlx)))
+	if (load_texture("tex/wall.xpm", &(info->img_wall), &(info->mlx)))
 		return (-1);
-	if (load_texture("tex/exit.png", &(info->img_exit), &(info->mlx)))
+	if (load_texture("tex/exit.xpm", &(info->img_exit), &(info->mlx)))
 		return (-1);
-	if (load_texture("tex/player.png", &(info->img_player), &(info->mlx)))
+	if (load_texture("tex/player.xpm", &(info->img_player), &(info->mlx)))
 		return (-1);
 	return (img_well_set(info));
 }

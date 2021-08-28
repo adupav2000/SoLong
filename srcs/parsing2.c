@@ -35,6 +35,9 @@ int	save_map(int fd, t_solong *allinfo)
 		m->next = NULL;
 		m->str = tmp;
 	}
+	printf("t : %s\n", tmp);
+	if (tmp)
+		free(tmp);
 	return (0);
 }
 

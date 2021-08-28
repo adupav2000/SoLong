@@ -37,11 +37,13 @@ void	clear_map_info(t_solong *info)
 	while (info->map != NULL && ((info->map->next) != NULL))
 	{
 		str = info->map->next;
+		printf("FREE : %s\n", info->map->str);
 		if ((info->map->str) != NULL)
 			free(info->map->str);
 		free(info->map);
 		info->map = str;
 	}
+	free(info->map);
 }
 
 void	clear_all_variables(t_solong *info)

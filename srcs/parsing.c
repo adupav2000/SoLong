@@ -25,9 +25,12 @@ int	parsing(int ac, char **av, t_solong *all_info)
 {
 	int	fd;
 
-	if (ac != 2 || ft_strlen(av[1]) < 5
+	if (ac != 2)
+		return (exit_error(all_info, "Missing or wrong map file"));
+	if (ft_strlen(av[1]) < 5
 		|| ft_strncmp(&(av[1][ft_strlen(av[1]) - 4]), ".ber", 4) != 0)
-		return (exit_error(all_info, "Missing of wrong map file"));
+		return (exit_error(all_info, "Missing or wrong map file"));
+	printf("Problem ")
 	fd = open(av[1], O_RDONLY);
 	if (fd < 0 || init_solong(all_info))
 		return (exit_error(all_info, "Wrong file path."));

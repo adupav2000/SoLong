@@ -18,12 +18,13 @@ CC			= clang -Wall -Werror -Wextra
 
 NAME		= solong
 
+INCLIB 		= $(INC)/../lib
+
 .c.o:
 		${CC} -c $< -o ${<:.c=.o}
 
 all:	${OBJS}	
-	$(CC) $(OBJS) -lm libft/libft.a -Lmlx -lmlx -framework OpenGL -framework AppKit -o $(NAME)
-
+	$(CC) $(OBJS) -o $(NAME) -L. -lm libft/libft.a -L. -lm mlx/libmlx.a -L$(INCLIB) -lXext -lX11 -lbsd 
 clean:	
 		rm -rf ${OBJS}
 
