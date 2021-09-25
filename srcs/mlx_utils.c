@@ -6,7 +6,7 @@
 /*   By: adu-pavi <adu-pavi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/16 13:24:17 by adu-pavi          #+#    #+#             */
-/*   Updated: 2021/07/16 13:44:29 by adu-pavi         ###   ########.fr       */
+/*   Updated: 2021/08/28 18:37:33 by adu-pavi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,10 +43,10 @@ void	draw_square(t_solong *info, t_img *img, int x, int y)
 	int				i;
 	int				j;
 
-	printf("x : %d, map_col : %d\n", x, info->map_col);
-	printf("WHAT :x %d , y : %d\n", x, y);
-	printf("img->height : %d, img->width : %d", img->height, img->width);
-	printf("info->view.height: %d, info->view.width  : %d\n", info->view.height, info->view.width);
+	// printf("x : %d, map_col : %d\n", x, info->map_col);
+	// printf("WHAT :x %d , y : %d\n", x, y);
+	// printf("img->height : %d, img->width : %d", img->height, img->width);
+	// printf("info->view.height: %d, info->view.width  : %d\n", info->view.height, info->view.width);
 	j = 0;
 	while (j < img->height && (y + j) < info->view.height)
 	{
@@ -56,21 +56,20 @@ void	draw_square(t_solong *info, t_img *img, int x, int y)
 			//printf("img w : %d, img h : %d\n", img->width, img->height);
 			//printf("i = %d, j = %d\n", i, j);
 			color = mlx_get_pixel(img, i, j);
-	//		printf("i = %d, j = %d\n", i + y, j + x);
+			// printf("i = %d, j = %d\n", i + y, j + x);
 			if (color != mlx_rgb_to_int(0, 255, 255, 255))
 			{
-				printf("Here ?\n");
-				info->view.addr[(y + j) * info->view.line_length + (x + i) * info->view.bpp
-					/ 8] = img->addr[j * img->line_length
-					+ i * (img->bpp / 8)];
-				info->view.addr[(y + j) * info->view.line_length + (x + i) * info->view.bpp
-					/ 8 + 1] = img->addr[j * img->line_length
-					+ i * (img->bpp / 8) + 1];
-				info->view.addr[(y + j) * info->view.line_length + (x + i) * info->view.bpp
-					/ 8 + 2] = img->addr[j * img->line_length
-					+ i * (img->bpp / 8) + 2];
-				//mlx_draw_pixel(&(info->view), x + i, y + j, color);
-			//	printf("not after ?\n");
+				// info->view.addr[(y + j) * info->view.line_length + (x + i) * info->view.bpp
+				// 	/ 8] = img->addr[j * img->line_length
+				// 	+ i * (img->bpp / 8)];
+				// info->view.addr[(y + j) * info->view.line_length + (x + i) * info->view.bpp
+				// 	/ 8 + 1] = img->addr[j * img->line_length
+				// 	+ i * (img->bpp / 8) + 1];
+				// info->view.addr[(y + j) * info->view.line_length + (x + i) * info->view.bpp
+				// 	/ 8 + 2] = img->addr[j * img->line_length
+				// 	+ i * (img->bpp / 8) + 2];
+				mlx_draw_pixel(&(info->view), x + i, y + j, color);
+				//	printf("not after ?\n");
 			}
 			i++;
 		}

@@ -6,7 +6,7 @@
 /*   By: adu-pavi <adu-pavi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/15 20:36:34 by adu-pavi          #+#    #+#             */
-/*   Updated: 2021/07/16 14:16:52 by adu-pavi         ###   ########.fr       */
+/*   Updated: 2021/08/28 16:52:20 by adu-pavi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ int	put_floor_and_wall(t_solong *info, int x, int y, char c)
 //	else
 //		mlx_put_image_to_window(info->mlx.mlx_ptr,
 //			info->mlx.mlx_win, info->img_floor.img, x, y);
+	printf("put floor and walls\n");
 	 if (c == WALL)
 	 	draw_square(info, &(info->img_wall), x, y);
 	 else
@@ -69,6 +70,7 @@ int	put_all_items(t_solong *info, int x, int y, char c)
 //			info->mlx.mlx_win, info->img_exit.img, x, y);
 //	else if (c != WALL && c != FLOOR)
 //		return (-1);
+	printf("put all items, \n");
 	if (c == COLLECT)
 	 	draw_square(info, &(info->img_coll), x, y);
 	else if (c == PLAYER)
@@ -98,7 +100,6 @@ int	update_view(t_solong *info)
 		}
 		y++;
 	}
-	printf("Hellosssss\n");
 	mlx_put_image_to_window(info->mlx.mlx_ptr,
 		info->mlx.mlx_win, info->view.img, 0, 0);
 	return (0);
@@ -125,6 +126,7 @@ int	set_up_view(t_solong *info)
 		}
 		y++;
 	}
+	printf("mlx to window\n");
 	mlx_put_image_to_window(info->mlx.mlx_ptr,
 		info->mlx.mlx_win, info->view.img, 0, 0);
 	return (0);

@@ -20,11 +20,18 @@ NAME		= solong
 
 INCLIB 		= $(INC)/../lib
 
+linux =  -L. -lm mlx/libmlx.a -L$(INCLIB) -lXext -lX11 -lbsd 
+mac = libmlx.dylib
+
 .c.o:
 		${CC} -c $< -o ${<:.c=.o}
 
-all:	${OBJS}	
-	$(CC) $(OBJS) -o $(NAME) -L. -lm libft/libft.a -L. -lm mlx/libmlx.a -L$(INCLIB) -lXext -lX11 -lbsd 
+dep:
+	@make re libft/
+	@make re mlx/
+
+all: ${dep} ${OBJS}	
+	$(CC) $(OBJS) -o $(NAME) -L. -lm libft/libft.a ${mac}
 clean:	
 		rm -rf ${OBJS}
 

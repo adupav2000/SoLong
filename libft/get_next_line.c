@@ -1,133 +1,99 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: adu-pavi <adu-pavi@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/04/21 13:08:27 by adu-pavi          #+#    #+#             */
-/*   Updated: 2021/07/15 13:56:55 by AlainduPa        ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "libft.h"
 
-static char		*get_append(t_gnl *gnl)
+void	ft_substr_1(char buffer[])
 {
-	int i;
+	long	i;
+	long	j;
+	char	cpy[BUFFER_SIZE + 1];
 
 	i = 0;
-	gnl->nl = 0;
-	while (gnl->i + i < gnl->count)
-	{
-		if (gnl->buf[gnl->i + i] == '\n')
-		{
-			gnl->nl = 1;
-			i++;
-			break ;
-		}
+	while (i < BUFFER_SIZE + 1)
+		cpy[i++] = '\0';
+	i = 0;
+	while (buffer[i] != '\n' && i < BUFFER_SIZE && buffer[i] != '\0')
 		i++;
-	}
-	gnl->i += i;
-	return (ft_strsub(gnl->buf, gnl->i - i, i - gnl->nl));
+	if (buffer[i] == '\n')
+		i++;
+	j = 0;
+	while (i < BUFFER_SIZE)
+		cpy[j++] = buffer[i++];
+	i = -1;
+	while (++i < BUFFER_SIZE)
+		buffer[i] = cpy[i];
+	buffer[i] = '\0';
 }
 
-static t_gnl	*get_gnl(t_list **lst, int fd)
+int		check_file(int fd, char files[][BUFFER_SIZE + 1])
 {
-	t_gnl	gnl;
-	t_list	*temp;
+	long	len;
+	long	nb_read;
 
-	temp = *lst;
-	while (temp)
-	{
-		if (((t_gnl *)(temp->content))->fd == fd)
-			return ((t_gnl *)(temp->content));
-		temp = temp->next;
-	}
-	gnl.buf = ft_strnew(BUFF_SIZE);
-	gnl.count = BUFF_SIZE;
-	gnl.i = BUFF_SIZE;
-	gnl.fd = fd;
-	gnl.nl = 1;
-	temp = ft_lstnew(&gnl, sizeof(t_gnl));
-	ft_lstadd(lst, temp);
-	return ((t_gnl *)(temp->content));
+	if (fd < 0 || fd > 10240)
+		return (-1);
+	len = 0;
+	while (files[fd][len] && files[fd][len] != '\n' && len < BUFFER_SIZE)
+		len++;
+	if (len > 0 || files[fd][len] == '\n')
+		return (len);
+	if ((nb_read = read(fd, files[fd], BUFFER_SIZE)) < 0)
+		return (nb_read);
+	len = 0;
+	while (files[fd][len] != '\n' && len < nb_read)
+		len++;
+	return (len);
 }
 
-static void		del_gnl(t_list **lst, int fd, char **str)
+int		copy_and_cut_buffer(int size, int length, char **line, char buffer[])
 {
-	t_gnl	*gnl;
-	t_list	**temp;
-	t_list	*ptr;
+	long			i;
+	char			cpy[size];
 
-	temp = lst;
-	while (*temp)
+	i = -1;
+	while (++i < size - length)
+		cpy[i] = (*line)[i];
+	i = -1;
+	while (++i + (size - length) < size)
+		cpy[i + (size - length)] = buffer[i];
+	free((*line));
+	if (!((*line) = malloc(sizeof(char) *
+					(size + ((buffer[length] == '\n' || !length) ? 1 : 0)))))
+		return (-1);
+	i = -1;
+	while (++i < size)
+		(*line)[i] = cpy[i];
+	if (!(i *= 0) && (buffer[length] == '\n' || !length))
 	{
-		gnl = (t_gnl *)((*temp)->content);
-		if (gnl->fd == fd)
-			break ;
-		*temp = ((*temp)->next);
+		(*line)[size] = '\0';
+		ft_substr_1(buffer);
+		return (1);
 	}
-	if (*temp)
-	{
-		ptr = (*temp)->next;
-		ft_strdel(&(gnl->buf));
-		ft_memdel((void **)&gnl);
-		ft_memdel((void **)temp);
-		*temp = ptr;
-	}
-	ft_strdel(str);
-}
-
-static int		read_buffer(t_gnl *gnl, t_list **lst, char **temp, char **line)
-{
-	if (gnl->i == gnl->count)
-	{
-		gnl->count = read(gnl->fd, gnl->buf, BUFF_SIZE);
-		if (gnl->count == -1)
-		{
-			del_gnl(lst, gnl->fd, temp);
-			return (-1);
-		}
-		gnl->i = 0;
-		if (gnl->count == 0)
-		{
-			if (gnl->nl == 0)
-			{
-				*line = *temp;
-				return (1);
-			}
-		}
-	}
+	while ((buffer[length] != '\n' || length) && i < BUFFER_SIZE)
+		buffer[i++] = '\0';
 	return (0);
 }
 
-int				get_next_line(int const fd, char **line)
+int		get_next_line(int fd, char **line)
 {
-	static t_list	*lst;
-	t_gnl			*gnl;
-	char			*temp;
-	int				ret;
+	int				length;
+	int				size;
+	static char		files[10242][BUFFER_SIZE + 1];
 
-	if (fd < 0 || line == NULL)
+	if (!line || BUFFER_SIZE <= 0 || !((*line) = malloc(sizeof(char)))
+			|| (length = check_file(fd, files)) < 0)
 		return (-1);
-	gnl = get_gnl(&lst, fd);
-	temp = ft_strnew(0);
-	while (gnl->count > 0)
+	if (!length && files[fd][length] != '\n')
+		(*line)[0] = '\0';
+	size = 0;
+	while ((size += length) > -1 && (length || files[fd][length] == '\n'))
 	{
-		if ((ret = read_buffer(gnl, &lst, &temp, line)) != 0)
-			return (ret);
-		while (gnl->i < gnl->count)
-		{
-			temp = ft_strmerge(temp, get_append(gnl));
-			if (gnl->nl)
-			{
-				*line = temp;
-				return (1);
-			}
-		}
+		if ((length = copy_and_cut_buffer(size, length, line, files[fd])) != 0)
+			return (length);
+		if ((length = check_file(fd, files)) < 0)
+			return (length);
 	}
-	del_gnl(&lst, fd, &temp);
+	if (size > 0)
+		if (copy_and_cut_buffer(size, length, line, files[fd]) < 0)
+			return (-1);
 	return (0);
 }
 
