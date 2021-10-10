@@ -6,12 +6,12 @@
 /*   By: adu-pavi <adu-pavi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/04 20:37:57 by myoung            #+#    #+#             */
-/*   Updated: 2021/07/16 01:16:32 by adu-pavi         ###   ########.fr       */
+/*   Updated: 2021/10/10 14:11:34 by AlainduPa        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef KEYS_H
-# define KEYS_H
+#ifndef KEYCODE_LINUX_H
+# define KEYCODE_LINUX_H
 
 /*
 ** char *string = ""

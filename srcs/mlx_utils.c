@@ -6,7 +6,7 @@
 /*   By: adu-pavi <adu-pavi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/16 13:24:17 by adu-pavi          #+#    #+#             */
-/*   Updated: 2021/08/28 18:37:33 by adu-pavi         ###   ########.fr       */
+/*   Updated: 2021/10/10 14:13:37 by adu-pavi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ void	mlx_draw_pixel(t_img *mlx_img, int x, int y, int color)
 	//	mlx_img->line_length, mlx_img->endian);
 	//printf("view height : %d, width %d\n", mlx_img->height, mlx_img->width);
 	//printf("target : %d\n", (x * mlx_img->bpp / 8 + y * mlx_img->line_length));
-
 	target = mlx_img->addr + (x * mlx_img->bpp / 8 + y * mlx_img->line_length);
 	*(unsigned int *)target = color;
 }

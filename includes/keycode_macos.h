@@ -6,12 +6,13 @@
 /*   By: adu-pavi <adu-pavi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/04 20:37:57 by myoung            #+#    #+#             */
-/*   Updated: 2021/07/16 01:18:26 by adu-pavi         ###   ########.fr       */
+/*   Updated: 2021/10/10 14:12:04 by AlainduPa        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef KEYS_H
-# define KEYS_H
+#ifndef KEYCODE_MACOS_H
+# define KEYCODE_MACOS_H
+
 # define KEY_A 97
 # define KEY_S 115
 # define KEY_D 100
